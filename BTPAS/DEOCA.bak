@@ -52,6 +52,6 @@ procedure solve2;
  end;
 BEGIN
         nhap;
-        //solve1;
+        solve1;
         solve2;
 END.
