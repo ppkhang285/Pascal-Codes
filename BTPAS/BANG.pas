@@ -33,6 +33,22 @@ function max(x,y:longint):longint;
   begin
         if (x>y) then exit(X) else exit(y);
   end;
+function Find(i,j,L,R:longint):longint;
+ var  res,mid:longint;
+ begin
+        res:=0;
+        repeat
+                  mid:= (L+R) div 2;
+                  if (D[mid-j+i,mid] - D[mid-j+i,j-1] - D[i-1,mid] + D[i-1,j-1]) <> (mid-j+1)*(mid-j+1) then
+                   R:= mid -1
+                  else
+                   begin
+                        L:= mid +1;
+                        res:=mid;
+                   end;
+        until L>R;
+        exit(res);
+ end;
 procedure solve;
  var  i,j,k,R,ans:longint;
  begin
@@ -43,10 +59,11 @@ procedure solve;
                  begin
                         if (n-j<=n-i) then R:=n else R:=n-i+j;
                         //[i,j] -- //[k-j +i, k]
-                        for k:=j to R+1 do
-                        if (D[k-j+i,k] - D[k-j+i,j-1] - D[i-1,k] + D[i-1,j-1]) <> (k-j+1)*(k-j+1) then
-                                break;
-                        k:=k-1;
+                       // for k:=j to R+1 do
+                       // if (D[k-j+i,k] - D[k-j+i,j-1] - D[i-1,k] + D[i-1,j-1]) <> (k-j+1)*(k-j+1) then
+                       //         break;
+                       // k:=k-1;
+                        k:= Find(i,j,j,R);
                         ans:= max(ans,F[k-j+i,k] - F[k-j+i,j-1] - F[i-1,k] + F[i-1,j-1] );
 
                  end;
